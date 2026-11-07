@@ -1,0 +1,1323 @@
+{
+  "info": {
+    "name": "Laboratório de Microsserviços",
+    "description": "Requisições das 20 atividades. Execute em ordem, com os serviços recém-iniciados (npm start). As atividades 15, 16, 19 e 20 também pedem encerrar e iniciar serviços manualmente; veja o README.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Atividade 01 - Primeiro microsserviço",
+      "item": [
+        {
+          "name": "GET :4001/status (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4001/status"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 02 - Rotas e métodos HTTP",
+      "item": [
+        {
+          "name": "GET :4001/produtos (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4001/produtos"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4001/produtos/1 (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4001/produtos/1"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4001/produtos/999 (espera 404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4001/produtos/999"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 03 - Parâmetros e consultas",
+      "item": [
+        {
+          "name": "GET :4001/produtos?categoria=perifericos (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4001/produtos?categoria=perifericos"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4001/produtos?categoria=informatica&limite=1 (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4001/produtos?categoria=informatica&limite=1"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4001/produtos?categoria=inexistente (espera 400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4001/produtos?categoria=inexistente"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4001/produtos?limite=0 (espera 400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4001/produtos?limite=0"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4001/produtos?limite=abc (espera 400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4001/produtos?limite=abc"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 04 - Validação de JSON",
+      "item": [
+        {
+          "name": "POST :4001/produtos (espera 201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:4001/produtos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Headset\",\n  \"preco\": 189.9\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 201\", () => pm.response.to.have.status(201));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST :4001/produtos (espera 400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:4001/produtos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Headset\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST :4001/produtos (espera 400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:4001/produtos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Headset\",\n  \"preco\": -5\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST :4001/produtos (espera 400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:4001/produtos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nome\": \"Headset\""
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 05 - Primeira consulta externa",
+      "item": [
+        {
+          "name": "GET :4003/usuarios (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4003/usuarios"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 06 - Detalhes de usuário",
+      "item": [
+        {
+          "name": "GET :4003/usuarios/1 (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4003/usuarios/1"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4003/usuarios/999 (espera 404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4003/usuarios/999"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4003/usuarios/abc (espera 400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4003/usuarios/abc"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 07 - Consulta de CEP",
+      "item": [
+        {
+          "name": "GET :4002/enderecos/01001000 (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4002/enderecos/01001000"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4002/enderecos/123 (espera 400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4002/enderecos/123"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4002/enderecos/99999999 (espera 404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4002/enderecos/99999999"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 08 - Tarefas remotas",
+      "item": [
+        {
+          "name": "GET :4004/tarefas (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4004/tarefas"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4004/tarefas?usuario=1 (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4004/tarefas?usuario=1"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4004/tarefas?usuario=abc (espera 400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4004/tarefas?usuario=abc"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 09 - Dados meteorológicos",
+      "item": [
+        {
+          "name": "GET :4005/clima?latitude=-23.55&longitude=-46.63 (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4005/clima?latitude=-23.55&longitude=-46.63"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4005/clima?latitude=100&longitude=-46.63 (espera 400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4005/clima?latitude=100&longitude=-46.63"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4005/clima?latitude=abc (espera 400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4005/clima?latitude=abc"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 10 - Catálogo de personagens",
+      "item": [
+        {
+          "name": "GET :4006/pokemon/25 (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4006/pokemon/25"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4006/pokemon/99999 (espera 404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4006/pokemon/99999"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 11 - Cadastro local",
+      "item": [
+        {
+          "name": "POST :4001/produtos (espera 201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:4001/produtos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Webcam Full HD\",\n  \"preco\": 299.9,\n  \"categoria\": \"perifericos\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 201\", () => pm.response.to.have.status(201));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4001/produtos?categoria=perifericos (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4001/produtos?categoria=perifericos"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 12 - Atualização e remoção",
+      "item": [
+        {
+          "name": "GET :4001/produtos/7 (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4001/produtos/7"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "PUT :4001/produtos/7 (espera 200)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:4001/produtos/7",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Webcam 4K\",\n  \"preco\": 549.9,\n  \"categoria\": \"perifericos\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4001/produtos/7 (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4001/produtos/7"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "DELETE :4001/produtos/7 (espera 204)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "http://localhost:4001/produtos/7"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4001/produtos/7 (espera 404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4001/produtos/7"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "DELETE :4001/produtos/7 (espera 404)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "http://localhost:4001/produtos/7"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 13 - Separação de serviços",
+      "item": [
+        {
+          "name": "GET :4001/status (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4001/status"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4007/status (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4007/status"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 14 - Gateway de API",
+      "item": [
+        {
+          "name": "GET :4000/api/produtos?limite=2 (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4000/api/produtos?limite=2"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4000/api/produtos/999 (espera 404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4000/api/produtos/999"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST :4000/api/pedidos (espera 201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:4000/api/pedidos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": \"Ana Souza\",\n  \"itens\": [\n    {\n      \"produtoId\": 2,\n      \"quantidade\": 1\n    }\n  ]\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 201\", () => pm.response.to.have.status(201));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4000/api/pedidos/1 (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4000/api/pedidos/1"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4000/api/pedidos/999 (espera 404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4000/api/pedidos/999"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 15 - Timeout e indisponibilidade",
+      "item": [
+        {
+          "name": "POST :4007/pedidos (espera 503)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:4007/pedidos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": \"Bruno Lima\",\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": 1\n    }\n  ]\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 503\", () => pm.response.to.have.status(503));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4000/api/produtos (espera 503)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4000/api/produtos"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 503\", () => pm.response.to.have.status(503));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST :4007/pedidos (espera 201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:4007/pedidos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": \"Bruno Lima\",\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": 1\n    }\n  ]\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 201\", () => pm.response.to.have.status(201));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 16 - Persistência de pedidos",
+      "item": [
+        {
+          "name": "POST :4007/pedidos (espera 201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:4007/pedidos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": \"Carla Dias\",\n  \"itens\": [\n    {\n      \"produtoId\": 5,\n      \"quantidade\": 2\n    }\n  ]\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 201\", () => pm.response.to.have.status(201));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4007/pedidos/3 (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4007/pedidos/3"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 17 - Configuração segura",
+      "item": []
+    },
+    {
+      "name": "Atividade 18 - Testes de integração",
+      "item": []
+    },
+    {
+      "name": "Atividade 19 - Logs e observabilidade",
+      "item": [
+        {
+          "name": "POST :4000/api/pedidos (espera 201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-request-id",
+                "value": "demo-sucesso"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:4000/api/pedidos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": \"Davi Rocha\",\n  \"itens\": [\n    {\n      \"produtoId\": 3,\n      \"quantidade\": 1\n    }\n  ]\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 201\", () => pm.response.to.have.status(201));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST :4000/api/pedidos (espera 503)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-request-id",
+                "value": "demo-falha"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:4000/api/pedidos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": \"Davi Rocha\",\n  \"itens\": [\n    {\n      \"produtoId\": 3,\n      \"quantidade\": 1\n    }\n  ]\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 503\", () => pm.response.to.have.status(503));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Atividade 20 - Gestão de pedidos integrada",
+      "item": [
+        {
+          "name": "GET :4000/api/produtos?limite=3 (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4000/api/produtos?limite=3"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST :4000/api/pedidos (espera 201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:4000/api/pedidos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": \"Maria Oliveira\",\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": 1\n    },\n    {\n      \"produtoId\": 3,\n      \"quantidade\": 2\n    }\n  ]\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 201\", () => pm.response.to.have.status(201));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET :4000/api/pedidos/5 (espera 200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:4000/api/pedidos/5"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST :4000/api/pedidos (espera 400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:4000/api/pedidos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": \"\",\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": 0\n    }\n  ]\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST :4000/api/pedidos (espera 422)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:4000/api/pedidos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": \"Maria Oliveira\",\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": 1\n    },\n    {\n      \"produtoId\": 999,\n      \"quantidade\": 1\n    }\n  ]\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 422\", () => pm.response.to.have.status(422));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST :4000/api/pedidos (espera 503)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:4000/api/pedidos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cliente\": \"Maria Oliveira\",\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": 1\n    }\n  ]\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 503\", () => pm.response.to.have.status(503));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

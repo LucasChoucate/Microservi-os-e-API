@@ -1,0 +1,15 @@
+{
+  "name": "laboratorio-microsservicos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Roteiro de Prática de Microsserviços: gestão de pedidos com Node.js e Express",
+  "scripts": {
+    "instalar": "node scripts/instalar.js",
+    "start": "node scripts/iniciar.js",
+    "test": "node scripts/testar.js",
+    "evidencias": "node scripts/gerar-evidencias.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

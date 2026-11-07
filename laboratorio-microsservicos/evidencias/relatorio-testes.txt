@@ -1,0 +1,207 @@
+TOTAL: 116 testes, 0 falhas
+
+===== servico-produtos =====
+✔ GET /status informa nome, versão e status (54.4936ms)
+✔ GET /produtos lista o catálogo (9.5383ms)
+✔ GET /produtos/:id retorna o produto ou 404/400 (6.9381ms)
+✔ filtros de categoria e limite funcionam juntos (4.9087ms)
+✔ filtro inválido retorna 400: categoria=inexistente (3.4486ms)
+✔ filtro inválido retorna 400: categoria=geral&categoria=moveis (3.6175ms)
+✔ filtro inválido retorna 400: limite=0 (4.1788ms)
+✔ filtro inválido retorna 400: limite=-1 (3.7221ms)
+✔ filtro inválido retorna 400: limite=abc (3.3126ms)
+✔ filtro inválido retorna 400: limite=101 (4.0774ms)
+✔ filtro inválido retorna 400: limite=2.5 (4.509ms)
+✔ POST /produtos cria com 201 e Location (21.825ms)
+✔ POST /produtos retorna 400: sem preço (3.4452ms)
+✔ POST /produtos retorna 400: sem nome (2.9928ms)
+✔ POST /produtos retorna 400: nome em branco (3.0404ms)
+✔ POST /produtos retorna 400: preço negativo (4.0106ms)
+✔ POST /produtos retorna 400: preço zero (2.9293ms)
+✔ POST /produtos retorna 400: preço como texto (2.8514ms)
+✔ POST /produtos retorna 400: categoria inválida (2.8058ms)
+✔ POST /produtos retorna 400: corpo em lista (3.205ms)
+✔ POST /produtos retorna 400: JSON malformado (3.2189ms)
+✔ POST /produtos sem corpo retorna 400 (2.5069ms)
+✔ PUT atualiza com 200 e mantém o id (3.9888ms)
+✔ PUT valida o corpo e diferencia 400 de 404 (5.6416ms)
+✔ DELETE remove com 204 e o produto deixa de existir (4.0381ms)
+✔ o id de um produto removido não é reutilizado (7.3764ms)
+✔ rota desconhecida retorna 404 em JSON (3.2083ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1639.2065
+
+===== servico-enderecos =====
+✔ devolve o endereço simplificado (200) (41.4252ms)
+✔ aceita CEP com hífen (6.4227ms)
+✔ CEP sem 8 dígitos retorna 400 (1.9436ms)
+✔ CEP inexistente retorna 404 (3.2923ms)
+✔ erro da API externa retorna 502 (2.9535ms)
+✔ resposta externa inválida retorna 502 (2.6124ms)
+✔ API externa fora do ar retorna 502 (4.6282ms)
+✔ timeout da API externa retorna 502 sem deixar a requisição pendente (122.7527ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 672.6958
+
+===== servico-usuarios =====
+✔ GET /usuarios devolve a lista resumida (43.1442ms)
+✔ GET /usuarios/:id devolve os detalhes (4.3704ms)
+✔ usuário inexistente retorna 404 (2.5111ms)
+✔ id inválido retorna 400: abc (1.8621ms)
+✔ id inválido retorna 400: 0 (1.3319ms)
+✔ id inválido retorna 400: -1 (1.1899ms)
+✔ id inválido retorna 400: 1.5 (1.3697ms)
+✔ erro da API externa retorna 502 (1.7073ms)
+✔ API externa fora do ar retorna 502 nas duas rotas (5.3178ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 551.6099
+
+===== servico-tarefas =====
+✔ sem filtro devolve todas as tarefas traduzidas (39.261ms)
+✔ com filtro devolve só as tarefas do usuário (4.9814ms)
+✔ usuário sem tarefas devolve lista vazia (5.6835ms)
+✔ filtro inválido retorna 400: usuario=abc (1.555ms)
+✔ filtro inválido retorna 400: usuario=0 (1.1405ms)
+✔ filtro inválido retorna 400: usuario= (1.2584ms)
+✔ filtro inválido retorna 400: usuario=1&usuario=2 (1.4255ms)
+✔ API externa fora do ar retorna 502 (3.9184ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 541.9981
+
+===== servico-clima =====
+✔ coordenadas válidas devolvem o JSON reduzido (42.3253ms)
+✔ temperatura zero é um valor válido (4.2299ms)
+✔ coordenadas inválidas retornam 400: "" (1.566ms)
+✔ coordenadas inválidas retornam 400: "latitude=10" (1.5113ms)
+✔ coordenadas inválidas retornam 400: "longitude=10" (1.4236ms)
+✔ coordenadas inválidas retornam 400: "latitude=&longitude=" (1.2884ms)
+✔ coordenadas inválidas retornam 400: "latitude=91&longitude=0" (1.2585ms)
+✔ coordenadas inválidas retornam 400: "latitude=0&longitude=181" (1.4859ms)
+✔ coordenadas inválidas retornam 400: "latitude=abc&longitude=0" (1.1321ms)
+✔ coordenadas inválidas retornam 400: "latitude=1e1&longitude=0" (1.1671ms)
+✔ coordenadas inválidas retornam 400: "latitude=1&latitude=2&longitude=0" (0.8821ms)
+✔ resposta externa sem temperatura retorna 502 (2.2144ms)
+✔ API externa fora do ar retorna 502 (4.3128ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 544.824
+
+===== servico-pokemon =====
+✔ devolve nome, tipos e habilidades (38.785ms)
+✔ 404 da fonte externa vira 404 local (4.1888ms)
+✔ id inválido retorna 400 (3.0894ms)
+✔ erro da fonte externa retorna 502 (2.6078ms)
+✔ resposta externa incompleta retorna 502 (2.5355ms)
+✔ fonte externa fora do ar retorna 502 (4.7376ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 536.4554
+
+===== servico-pedidos =====
+✔ cria o pedido com preços do serviço de produtos e total calculado (78.4947ms)
+✔ o total não sofre erro de arredondamento (12.4847ms)
+✔ ignora preço e total enviados pelo cliente (9.3805ms)
+✔ repassa o x-request-id ao serviço de produtos (18.1291ms)
+✔ pedido inválido retorna 400 sem consultar produtos: sem cliente (5.7178ms)
+✔ pedido inválido retorna 400 sem consultar produtos: cliente em branco (4.4539ms)
+✔ pedido inválido retorna 400 sem consultar produtos: sem itens (4.3896ms)
+✔ pedido inválido retorna 400 sem consultar produtos: itens vazio (4.2491ms)
+✔ pedido inválido retorna 400 sem consultar produtos: item nulo (13.5228ms)
+✔ pedido inválido retorna 400 sem consultar produtos: quantidade zero (4.4899ms)
+✔ pedido inválido retorna 400 sem consultar produtos: quantidade fracionada (3.9962ms)
+✔ pedido inválido retorna 400 sem consultar produtos: quantidade em texto (4.2014ms)
+✔ pedido inválido retorna 400 sem consultar produtos: quantidade excessiva (3.8428ms)
+✔ pedido inválido retorna 400 sem consultar produtos: produtoId inválido (12.2076ms)
+✔ pedido inválido retorna 400 sem consultar produtos: produto repetido (3.9371ms)
+✔ pedido inválido retorna 400 sem consultar produtos: JSON malformado (5.2805ms)
+✔ produto inexistente retorna 422, lista os ids e não salva (7.7401ms)
+✔ serviço de produtos fora do ar retorna 503 e não salva (13.3136ms)
+✔ serviço de produtos travado responde 503 dentro do timeout (163.1471ms)
+✔ erro 500 do serviço de produtos retorna 502 (6.2071ms)
+✔ JSON inválido do serviço de produtos retorna 502 (5.1017ms)
+✔ dados incompletos do serviço de produtos retorna 502 (6.7714ms)
+✔ GET /pedidos/:id diferencia 200, 400 e 404 (13.9727ms)
+✔ pedidos continuam disponíveis após reiniciar e os ids não se repetem (16.2134ms)
+✔ arquivo de dados corrompido impede a inicialização sem apagar o conteúdo (4.9354ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 885.0468
+
+===== gateway =====
+✔ encaminha o caminho e a consulta sem o prefixo /api (40.7853ms)
+✔ preserva o status 404 e o corpo do serviço (4.8919ms)
+✔ preserva o status 204 sem corpo (2.3435ms)
+✔ encaminha o corpo e ajusta o Location para o caminho público (6.0124ms)
+✔ JSON malformado chega ao serviço, que é quem valida (3.6291ms)
+✔ repassa o x-request-id recebido e o devolve ao cliente (2.3867ms)
+✔ gera um x-request-id quando o recebido é inválido (2.7628ms)
+✔ serviço fora do ar retorna 503 (2.4892ms)
+✔ serviço travado retorna 503 dentro do timeout (166.6018ms)
+✔ rota fora do mapa retorna 404: /api (3.6115ms)
+✔ rota fora do mapa retorna 404: /api/desconhecido (0.8791ms)
+✔ rota fora do mapa retorna 404: /api/produtosx (0.8194ms)
+✔ rota fora do mapa retorna 404: /produtos (0.7786ms)
+✔ responde ao CORS de um frontend (1.1706ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 754.7587
+
+===== testes-integracao (ponta a ponta) =====
+✔ cria um pedido pelo gateway usando os preços reais do catálogo (100.8664ms)
+✔ um produto criado pelo gateway já pode ser usado em um pedido (36.4376ms)
+✔ um produto removido não pode mais ser pedido (11.9613ms)
+✔ o gateway preserva 400 e 422 vindos de pedidos (12.2409ms)
+✔ com produtos fora do ar, pedido retorna 503 e nada é salvo (13.7366ms)
+✔ o pedido continua disponível depois de reiniciar o serviço de pedidos (17.8078ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 739.028
